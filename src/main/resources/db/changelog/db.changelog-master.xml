@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <!-- Include each individual changelog file -->
+    <include file="classpath:db/changelog/001-create-table-USER.xml"/>
+    <include file="classpath:db/changelog/001-create-table-ORDERS.xml"/>
+    <include file="classpath:db/changelog/001-create-table-RESTRAUNT.xml"/>
+    <!--  Include other files here -->
+</databaseChangeLog>

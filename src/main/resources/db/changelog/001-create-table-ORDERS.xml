@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <changeSet id="create_orders_table" author="pavan_kalyan">
+        <createTable tableName="ORDERS" >
+            <column name="id" type="int"  autoIncrement="true" startWith="10001" incrementBy="1" >
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="user_id" type="int"/>
+            <column name="restaurant_id" type="int"><constraints nullable="false" /></column>
+            <column name="order_total" type="decimal(10,2)" defaultValue="0.0"/>
+            <column name="status" type="varchar" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="driver_id" type="int"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="ORDERS" baseColumnNames="user_id" constraintName="fk_order_user" referencedTableName="USER"
+                                 referencedColumnNames="id" onDelete="CASCADE"  />
+        <addForeignKeyConstraint baseTableName="ORDERS" baseColumnNames="restaurant_id" constraintName="fk_order_restaurant" referencedTableName="RESTAURANT"
+                                 referencedColumnNames="id"  onDelete="CASCADE" />
+        <rollback>
+            <dropTable tableName="ORDERS"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
