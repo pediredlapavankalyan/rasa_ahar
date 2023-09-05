@@ -6,8 +6,9 @@
 
     <changeSet id="create_order_details_table" author="pavan_kalyan">
         <createTable tableName="ORDER_DETAILS" >
-            <column name="order_id" type="int"><constraints primaryKey="true" /></column>
-            <column name="dish_id" type="int">><constraints primaryKey="true" /></column>
+            <column name="id" type="int"  autoIncrement="true" startWith="800001" incrementBy="1" ><constraints primaryKey="true" /></column>
+            <column name="order_id" type="int"/>
+            <column name="dish_id" type="int"/>
             <column name="quantity" type="int" defaultValue="1"/>
         </createTable>
         <addForeignKeyConstraint baseTableName="ORDER_DETAILS" baseColumnNames="order_id" constraintName="fk_order_details_order" referencedTableName="ORDERS"

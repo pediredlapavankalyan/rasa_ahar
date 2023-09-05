@@ -1,19 +1,19 @@
 package com.imag.rasa_ahar.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table
+@Table(name = "USERS")
 public class User {
-    //creating properties of user
+    //creat
+    // ing properties of user
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
     @Column
@@ -24,6 +24,23 @@ public class User {
     private String password;
     @Column
     private long phone;
+
+    //Relationship of User with other entities
+    //mappings
+
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<Address> addresses;
+
+    @OneToMany(mappedBy = "user_ordered")
+    @JsonIgnore
+    private Set<Orders> orders;
+
+    @OneToMany(mappedBy = "rated_user")
+    @JsonIgnore
+    private Set<Rating> userRatings;
+
 
     public int getId() {
         return id;

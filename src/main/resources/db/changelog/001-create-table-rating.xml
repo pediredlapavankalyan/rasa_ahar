@@ -20,7 +20,7 @@
                 <constraints nullable="false" unique="true" />
             </column>
         </createTable>
-        <addForeignKeyConstraint baseTableName="rating" baseColumnNames="user_id" constraintName="fk_rating_user" referencedTableName="USER"
+        <addForeignKeyConstraint baseTableName="rating" baseColumnNames="user_id" constraintName="fk_rating_user" referencedTableName="USERS"
                                  referencedColumnNames="id" onDelete="CASCADE" />
         <addForeignKeyConstraint baseTableName="rating" baseColumnNames="restaurant_id" constraintName="fk_rating_restaurant" referencedTableName="RESTAURANT"
                                  referencedColumnNames="id" />

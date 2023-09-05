@@ -1,5 +1,6 @@
 package com.imag.rasa_ahar.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -7,14 +8,27 @@ import java.util.Objects;
 @Entity
 @Table
 public class OrderDetails {
-    @Column
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private int id;
+    @Column
+    private int orderId;
     @Column
     private int dishId;
     @Column
     private int quantity;
 
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "orderId", referencedColumnName = "id", insertable = false, updatable = false)
+    private Orders order;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "dishId", referencedColumnName = "id", insertable = false, updatable = false)
+    private Menu dish;
 
     public int getId() {
         return id;

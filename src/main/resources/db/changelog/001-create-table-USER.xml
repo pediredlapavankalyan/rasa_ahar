@@ -5,18 +5,18 @@
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
 
   <changeSet id="create_user_table" author="pavan_kalyan">
-      <createTable tableName="USER" >
+      <createTable tableName="USERS" >
           <column name="id" type="int"  autoIncrement="true" startWith="1001" incrementBy="1" >
         <constraints primaryKey="true"/>
           </column>
-          <column name="name" type="varchar" ><constraints nullable="false"/></column>
-          <column name="email" type="varchar">
+          <column name="name" type="varchar(100)" ><constraints nullable="false"/></column>
+          <column name="email" type="varchar(100)">
               <constraints nullable="false" unique="true"  />
           </column>
-          <column name="password" type="varchar" >
+          <column name="password" type="varchar(100)" >
               <constraints nullable="false" />
           </column>
-          <column name="phone" type="varchar">
+          <column name="phone" type="bigint">
               <constraints nullable="false" unique="true" />
           </column>
       </createTable>
@@ -24,4 +24,6 @@
           <dropTable tableName="USER"/>
       </rollback>
   </changeSet>
+
+
 </databaseChangeLog>

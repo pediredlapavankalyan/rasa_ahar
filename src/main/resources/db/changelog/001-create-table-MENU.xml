@@ -12,7 +12,7 @@
            <column name="restaurant_id" type="int" >
                <constraints nullable="false" />
            </column>
-            <column name="dish_name" type="varchar"><constraints nullable="false"/></column>
+            <column name="dish_name" type="varchar(100)"><constraints nullable="false"/></column>
             <column name="price" type="decimal(10,2)" defaultValue="0.0" />
         </createTable>
         <addForeignKeyConstraint baseTableName="MENU" baseColumnNames="restaurant_id" constraintName="fk_menu_restaurant" referencedTableName="RESTAURANT"

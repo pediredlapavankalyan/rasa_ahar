@@ -1,15 +1,13 @@
 package com.imag.rasa_ahar.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.Objects;
 
 @Entity
 @Table
 public class Address {
+    @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -24,7 +22,10 @@ public class Address {
     @Column
     private int pincode;
 
-
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "userId",referencedColumnName = "id",updatable = false,insertable = false)
+    private  User user;
     public int getId() {
         return id;
     }
