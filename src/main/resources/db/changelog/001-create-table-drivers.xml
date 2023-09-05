@@ -4,21 +4,22 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
 
-    <changeSet id="create_restaurant_table" author="pavan_kalyan">
-        <createTable tableName="RESTAURANT" >
-            <column name="id" type="int"  autoIncrement="true" startWith="100001" incrementBy="1" >
+    <changeSet id="create_drivers_table" author="pavan_kalyan">
+        <createTable tableName="DRIVERS" >
+            <column name="id" type="int"  autoIncrement="true" startWith="1" incrementBy="1" >
                 <constraints primaryKey="true"/>
             </column>
-            <column name="name" type="varchar"><constraints nullable="false" /></column>
-            <column name="address" type="varchar">
-                <constraints nullable="false" />
+            <column name="name" type="varchar" ><constraints nullable="false" /></column>
+            <column name="email" type="varchar">
+                <constraints nullable="false" unique="true"  />
             </column>
             <column name="phone" type="varchar">
                 <constraints nullable="false" unique="true" />
             </column>
+            <column name="location" type="varchar"><constraints nullable="false"  /></column>
         </createTable>
         <rollback>
-            <dropTable tableName="RESTAURANT"/>
+            <dropTable tableName="DRIVERS"/>
         </rollback>
     </changeSet>
 </databaseChangeLog>

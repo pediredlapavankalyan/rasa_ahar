@@ -10,19 +10,26 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="user_id" type="int"/>
-            <column name="restaurant_id" type="int"><constraints nullable="false" /></column>
+            <column name="restaurant_id" type="int"/>
             <column name="order_total" type="decimal(10,2)" defaultValue="0.0"/>
-            <column name="status" type="varchar" >
-                <constraints nullable="false"/>
-            </column>
+            <column name="status" type="varchar"><constraints nullable="false"/></column>
             <column name="driver_id" type="int"/>
+            <column name="time" type="time"><constraints nullable="false"/></column>
         </createTable>
         <addForeignKeyConstraint baseTableName="ORDERS" baseColumnNames="user_id" constraintName="fk_order_user" referencedTableName="USER"
                                  referencedColumnNames="id" onDelete="CASCADE"  />
         <addForeignKeyConstraint baseTableName="ORDERS" baseColumnNames="restaurant_id" constraintName="fk_order_restaurant" referencedTableName="RESTAURANT"
-                                 referencedColumnNames="id"  onDelete="CASCADE" />
+                                 referencedColumnNames="id" />
+        <addForeignKeyConstraint baseTableName="ORDERS" baseColumnNames="driver_id" constraintName="fk_order_driver"
+                                 referencedTableName="DRIVERS"
+                                 referencedColumnNames="id" />
         <rollback>
             <dropTable tableName="ORDERS"/>
         </rollback>
+    </changeSet>
+    <changeSet id="adding_not_null_constriant" author="pavan_kalyan">
+        <update tableName="ORDERS">
+            <column name="user_id"><constraints nullable="false" /></column>
+        </update>
     </changeSet>
 </databaseChangeLog>

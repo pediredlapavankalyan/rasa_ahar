@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <changeSet id="create_address_table" author="pavan_kalyan">
+        <createTable tableName="ADDRESS" >
+            <column name="id" type="int"  autoIncrement="true" startWith="600001" incrementBy="1" >
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="user_id" type="int" />
+            <column name="state" type="varchar"><constraints nullable="false" /></column>
+            <column name="city" type="varchar"><constraints nullable="false" /></column>
+            <column name="Street" type="varchar"><constraints nullable="false" /></column>
+            <column name="pincode" type="int"><constraints nullable="false" unique="true" /></column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="ADDRESS" baseColumnNames="user_id" constraintName="fk_address_user" referencedTableName="USER"
+                                 referencedColumnNames="id" onDelete="CASCADE"/>
+        <rollback>
+            <dropTable tableName="ADDRESS"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

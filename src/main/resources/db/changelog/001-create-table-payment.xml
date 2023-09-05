@@ -14,6 +14,8 @@
             <column name="amount" type="decimal(10,2)" defaultValue="0.0" />
             <column name="status" type="varchar"><constraints nullable="false" /></column>
         </createTable>
+        <addForeignKeyConstraint baseTableName="PAYMENT" baseColumnNames="order_id" constraintName="fk_payment_order" referencedTableName="ORDERS"
+                                 referencedColumnNames="id"/>
         <rollback>
             <dropTable tableName="PAYMENT"/>
         </rollback>
