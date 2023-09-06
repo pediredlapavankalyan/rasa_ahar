@@ -21,4 +21,19 @@
             <dropTable tableName="RESTAURANT"/>
         </rollback>
     </changeSet>
+    <changeSet id="adding_column_pin_code" author="pavan_kalyan">
+        <addColumn tableName="RESTAURANT">
+            <column name="pin_code" type="int"  ><constraints nullable="false"/></column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="adding_column_city" author="pavan_kalyan">
+        <addColumn tableName="RESTAURANT">
+            <column name="city" type="varchar(50)"  />
+        </addColumn>
+    </changeSet>
+    <changeSet id="adding_column_state" author="pavan_kalyan">
+        <addColumn tableName="RESTAURANT">
+            <column name="state" type="varchar(50)" />
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

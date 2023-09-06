@@ -54,6 +54,30 @@ public class OrderDetails {
         this.quantity = quantity;
     }
 
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public Orders getOrder() {
+        return order;
+    }
+
+    public void setOrder(Orders order) {
+        this.order = order;
+    }
+
+    public Menu getDish() {
+        return dish;
+    }
+
+    public void setDish(Menu dish) {
+        this.dish = dish;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

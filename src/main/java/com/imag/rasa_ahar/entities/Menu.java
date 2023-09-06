@@ -57,6 +57,14 @@ public class Menu {
         this.price = price;
     }
 
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -9,5 +9,4 @@ public class RasaAharApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RasaAharApplication.class, args);
 	}
-
 }

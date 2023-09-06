@@ -69,6 +69,14 @@ public class Drivers {
         this.location = location;
     }
 
+    public Set<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Orders> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

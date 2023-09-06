@@ -14,13 +14,12 @@ public class Restaurant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
     private String name;
-    @Column
     private String address;
-    @Column
     private long phone;
-
+    private  String city;
+    private  String state;
+    private int pinCode;
 
     @OneToMany(mappedBy = "rated_restaurant")
     @JsonIgnore
@@ -33,6 +32,7 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant")
     @JsonIgnore
     private Set<Orders> orders;
+
     public int getId() {
         return id;
     }
@@ -65,17 +65,65 @@ public class Restaurant {
         this.phone = phone;
     }
 
+    public int getPinCode() {
+        return pinCode;
+    }
+
+    public void setPinCode(int pinCode) {
+        this.pinCode = pinCode;
+    }
+
+    public Set<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(Set<Rating> ratings) {
+        this.ratings = ratings;
+    }
+
+    public Set<Menu> getMenuItems() {
+        return menuItems;
+    }
+
+    public void setMenuItems(Set<Menu> menuItems) {
+        this.menuItems = menuItems;
+    }
+
+    public Set<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Orders> orders) {
+        this.orders = orders;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Restaurant that = (Restaurant) o;
-        return id == that.id && phone == that.phone && Objects.equals(name, that.name) && Objects.equals(address, that.address);
+        return id == that.id && phone == that.phone && pinCode == that.pinCode && Objects.equals(name, that.name) && Objects.equals(address, that.address) && Objects.equals(city, that.city) && Objects.equals(state, that.state);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, address, phone);
+        return Objects.hash(id, name, address, phone, city, state, pinCode);
     }
 
     @Override
@@ -85,6 +133,9 @@ public class Restaurant {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", phone=" + phone +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", pinCode=" + pinCode +
                 '}';
     }
 }

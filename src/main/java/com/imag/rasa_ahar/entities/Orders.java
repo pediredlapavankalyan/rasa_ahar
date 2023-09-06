@@ -92,6 +92,62 @@ public class Orders {
         this.driverId = driverId;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(int restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    public User getUser_ordered() {
+        return user_ordered;
+    }
+
+    public void setUser_ordered(User user_ordered) {
+        this.user_ordered = user_ordered;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public Drivers getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Drivers driver) {
+        this.driver = driver;
+    }
+
+    public Set<OrderDetails> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(Set<OrderDetails> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

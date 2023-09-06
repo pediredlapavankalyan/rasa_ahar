@@ -10,8 +10,7 @@ import java.util.Set;
 @Entity
 @Table(name = "USERS")
 public class User {
-    //creat
-    // ing properties of user
+    //creating properties of user
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -80,6 +79,30 @@ public class User {
 
     public void setPhone(long phone) {
         this.phone = phone;
+    }
+
+    public Set<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    public Set<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Orders> orders) {
+        this.orders = orders;
+    }
+
+    public Set<Rating> getUserRatings() {
+        return userRatings;
+    }
+
+    public void setUserRatings(Set<Rating> userRatings) {
+        this.userRatings = userRatings;
     }
 
     @Override
