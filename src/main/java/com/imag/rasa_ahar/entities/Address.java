@@ -2,30 +2,31 @@ package com.imag.rasa_ahar.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
 import java.util.Objects;
 
 @Entity
 @Table
 public class Address {
+    //Fields
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column
+
     private int userId;
-    @Column
     private String state;
-    @Column
-    private  String city;
-    @Column
-    private  String street;
-    @Column
+    private String city;
+    private String street;
     private int pincode;
 
+    //RelationShip With other entities
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "userId",referencedColumnName = "id",updatable = false,insertable = false)
-    private  User user;
+    @JoinColumn(name = "userId", referencedColumnName = "id", updatable = false, insertable = false)
+    private User user;
+
+    //Getters and Setters
     public int getId() {
         return id;
     }
@@ -82,6 +83,7 @@ public class Address {
         this.user = user;
     }
 
+    //Object class Methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

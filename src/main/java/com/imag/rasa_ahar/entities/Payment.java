@@ -8,22 +8,21 @@ import java.util.Objects;
 @Entity
 @Table
 public class Payment {
+    //Fields
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column
     private int order_id;
-    @Column
     private String paymentMode;
-    @Column
     private double amount;
-    @Column
     private String status;
+    //RelationShip With other entities
     @OneToOne
     @JsonIgnore
-    @JoinColumn(name = "order_id", referencedColumnName = "id",insertable = false,updatable = false)
-    private Orders order;
+    @JoinColumn(name = "order_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Order order;
 
+    //Getters and Setters
     public int getId() {
         return id;
     }
@@ -64,14 +63,15 @@ public class Payment {
         this.status = status;
     }
 
-    public Orders getOrder() {
+    public Order getOrder() {
         return order;
     }
 
-    public void setOrder(Orders order) {
+    public void setOrder(Order order) {
         this.order = order;
     }
 
+    //Object class Methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

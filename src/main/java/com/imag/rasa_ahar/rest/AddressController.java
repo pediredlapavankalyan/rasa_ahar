@@ -1,7 +1,7 @@
 package com.imag.rasa_ahar.rest;
 
 import com.imag.rasa_ahar.entities.Address;
-import com.imag.rasa_ahar.service.Address_Service;
+import com.imag.rasa_ahar.service.AddressService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,17 +13,21 @@ import java.util.List;
 
 @RestController
 public class AddressController {
+    //Dependency Injection
     @Autowired
-    Address_Service as;
-    @PostMapping("/addAddress")
+    AddressService addressService;//as denotes Address_Service
+
+    //To add a new Address of User
+    @PostMapping("/user/Address")//url
     @Operation(summary = "To add new delivery address", description = "provide address in json format")
     public Address addAddress(Address address) {
-        return  as.newAddress(address);
+        return addressService.newAddress(address);
     }
 
-    @GetMapping("/userAddress/{phone}")
-    @Operation(summary = "To get all address of a user",description = "provide user phone number")
-    public List<Address> allAddress(@PathVariable("phone")long phone){
-        return as.allAddresses(phone);
+    //To find address of an user
+    @GetMapping("/user/userAddress/{phone}")//url
+    @Operation(summary = "To get all address of a user", description = "provide user phone number")
+    public List<Address> allAddress(@PathVariable("phone") long phone) {
+        return addressService.allAddresses(phone);
     }
 }

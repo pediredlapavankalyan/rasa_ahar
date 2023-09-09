@@ -7,36 +7,32 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table
-public class Orders {
+@Table(name = "orders")
+public class Order {
+    //Fields
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  int id;
-    @Column
+    private int id;
     private int userId;
-    @Column
     private int restaurantId;
-    @Column
     private double orderTotal;
-    @Column
     private String status;
-    @Column
     private int driverId;
 
-
+    //RelationShip With other entities
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "userId",referencedColumnName = "id",updatable = false,insertable = false)
-    private  User user_ordered;
+    @JoinColumn(name = "userId", referencedColumnName = "id", updatable = false, insertable = false)
+    private User user_ordered;
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "restaurantId",referencedColumnName = "id",insertable = false,updatable = false)
+    @JoinColumn(name = "restaurantId", referencedColumnName = "id", insertable = false, updatable = false)
     private Restaurant restaurant;
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "driverId",referencedColumnName = "id",updatable = false,insertable = false)
-    private  Drivers driver;
+    @JoinColumn(name = "driverId", referencedColumnName = "id", updatable = false, insertable = false)
+    private Driver driver;
     @OneToMany(mappedBy = "order")
     @JsonIgnore
     private Set<OrderDetails> orderDetails;
@@ -44,6 +40,7 @@ public class Orders {
     @JsonIgnore
     private Payment payment;
 
+    //Getters and Setters
     public int getId() {
         return id;
     }
@@ -124,11 +121,11 @@ public class Orders {
         this.restaurant = restaurant;
     }
 
-    public Drivers getDriver() {
+    public Driver getDriver() {
         return driver;
     }
 
-    public void setDriver(Drivers driver) {
+    public void setDriver(Driver driver) {
         this.driver = driver;
     }
 
@@ -148,12 +145,13 @@ public class Orders {
         this.payment = payment;
     }
 
+    //Object class Methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Orders orders = (Orders) o;
-        return id == orders.id && userId == orders.userId && restaurantId == orders.restaurantId && Double.compare(orderTotal, orders.orderTotal) == 0 && driverId == orders.driverId && Objects.equals(status, orders.status);
+        Order order = (Order) o;
+        return id == order.id && userId == order.userId && restaurantId == order.restaurantId && Double.compare(orderTotal, order.orderTotal) == 0 && driverId == order.driverId && Objects.equals(status, order.status);
     }
 
     @Override

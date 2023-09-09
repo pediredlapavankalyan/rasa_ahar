@@ -2,8 +2,7 @@ package com.imag.rasa_ahar.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,32 +14,27 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
-    @Column
     private String name;
-    @Column
     private String email;
-    @Column
     private String password;
-    @Column
     private long phone;
+
 
     //Relationship of User with other entities
     //mappings
-
-
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private Set<Address> addresses;
 
     @OneToMany(mappedBy = "user_ordered")
     @JsonIgnore
-    private Set<Orders> orders;
+    private Set<Order> orders;
 
     @OneToMany(mappedBy = "rated_user")
     @JsonIgnore
     private Set<Rating> userRatings;
 
-
+    //Getters and Setters
     public int getId() {
         return id;
     }
@@ -89,11 +83,11 @@ public class User {
         this.addresses = addresses;
     }
 
-    public Set<Orders> getOrders() {
+    public Set<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(Set<Orders> orders) {
+    public void setOrders(Set<Order> orders) {
         this.orders = orders;
     }
 
@@ -105,6 +99,7 @@ public class User {
         this.userRatings = userRatings;
     }
 
+    //Object class Methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

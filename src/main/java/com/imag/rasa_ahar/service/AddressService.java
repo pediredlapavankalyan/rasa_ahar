@@ -4,28 +4,30 @@ import com.imag.rasa_ahar.entities.Address;
 import com.imag.rasa_ahar.repo.AddressRepo;
 import com.imag.rasa_ahar.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class Address_Service implements AddressInterface {
+public class AddressService implements AddressInterface {
+    //Dependency Injection
     @Autowired
-    AddressRepo ar;
+    AddressRepo addressRepo;
 
     @Autowired
-    UserRepo ur;
+    UserRepo userRepo;
 
+    //To add new Address of an user
     @Override
     public Address newAddress(Address address) {
-        ar.save(address);
+        addressRepo.save(address);
         return address;
     }
 
+    //To get all address of an user
     @Override
     public List<Address> allAddresses(long phone) {
-        return ar.findAllByUserId(ur.findByPhone(phone).getId());
+        return addressRepo.findAllByUserId(userRepo.findByPhone(phone).getId());
     }
 
 }

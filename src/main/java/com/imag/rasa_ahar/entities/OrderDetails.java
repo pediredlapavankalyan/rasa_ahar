@@ -8,28 +8,26 @@ import java.util.Objects;
 @Entity
 @Table
 public class OrderDetails {
-
+    //Fields
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int id;
-    @Column
     private int orderId;
-    @Column
     private int dishId;
-    @Column
     private int quantity;
-
+    //RelationShip With other entities
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "orderId", referencedColumnName = "id", insertable = false, updatable = false)
-    private Orders order;
+    private Order order;
 
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "dishId", referencedColumnName = "id", insertable = false, updatable = false)
     private Menu dish;
 
+    //Getters and Setters
     public int getId() {
         return id;
     }
@@ -62,11 +60,11 @@ public class OrderDetails {
         this.orderId = orderId;
     }
 
-    public Orders getOrder() {
+    public Order getOrder() {
         return order;
     }
 
-    public void setOrder(Orders order) {
+    public void setOrder(Order order) {
         this.order = order;
     }
 
@@ -78,6 +76,7 @@ public class OrderDetails {
         this.dish = dish;
     }
 
+    //Object class Methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

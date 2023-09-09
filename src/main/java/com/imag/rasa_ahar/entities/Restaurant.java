@@ -9,18 +9,18 @@ import java.util.Set;
 @Entity
 @Table
 public class Restaurant {
+    //Fields
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String name;
     private String address;
     private long phone;
-    private  String city;
-    private  String state;
+    private String city;
+    private String state;
     private int pinCode;
-
+    //RelationShip With other entities
     @OneToMany(mappedBy = "rated_restaurant")
     @JsonIgnore
     private Set<Rating> ratings;
@@ -31,8 +31,9 @@ public class Restaurant {
 
     @OneToMany(mappedBy = "restaurant")
     @JsonIgnore
-    private Set<Orders> orders;
+    private Set<Order> orders;
 
+    //Getters and Setters
     public int getId() {
         return id;
     }
@@ -89,11 +90,11 @@ public class Restaurant {
         this.menuItems = menuItems;
     }
 
-    public Set<Orders> getOrders() {
+    public Set<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(Set<Orders> orders) {
+    public void setOrders(Set<Order> orders) {
         this.orders = orders;
     }
 
@@ -113,6 +114,7 @@ public class Restaurant {
         this.state = state;
     }
 
+    //Object class Methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

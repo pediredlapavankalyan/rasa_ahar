@@ -8,28 +8,26 @@ import java.util.Objects;
 @Entity
 @Table
 public class Rating {
+    //Fields
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
-
-    @Column
     private int restaurantId;
-    @Column
     private int userId;
-    @Column
-    private  int rating;
-
+    private int rating;
+    //RelationShip With other entities
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "restaurantId",referencedColumnName = "id",insertable = false,updatable = false)
+    @JoinColumn(name = "restaurantId", referencedColumnName = "id", insertable = false, updatable = false)
     private Restaurant rated_restaurant;
 
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "userId",referencedColumnName = "id",insertable = false,updatable = false)
+    @JoinColumn(name = "userId", referencedColumnName = "id", insertable = false, updatable = false)
     private User rated_user;
 
+    //Getters and Setters
     public int getId() {
         return id;
     }
@@ -78,6 +76,7 @@ public class Rating {
         this.rated_user = rated_user;
     }
 
+    //Object class Methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

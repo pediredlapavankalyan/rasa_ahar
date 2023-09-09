@@ -13,7 +13,7 @@
             <column name="state" type="varchar(100)"><constraints nullable="false" /></column>
             <column name="city" type="varchar(100)"><constraints nullable="false" /></column>
             <column name="Street" type="varchar(100)"><constraints nullable="false" /></column>
-            <column name="pincode" type="int"><constraints nullable="false" unique="true" /></column>
+            <column name="pincode" type="int"><constraints nullable="false" /></column>
         </createTable>
         <addForeignKeyConstraint baseTableName="ADDRESS" baseColumnNames="user_id" constraintName="fk_address_user" referencedTableName="USERS"
                                  referencedColumnNames="id" onDelete="CASCADE"/>
@@ -21,4 +21,5 @@
             <dropTable tableName="ADDRESS"/>
         </rollback>
     </changeSet>
+
 </databaseChangeLog>

@@ -13,11 +13,8 @@
             <column name="user_id" type="int">
                 <constraints nullable="false"   />
             </column>
-            <column name="rating" type="decimal(3,2)" >
-                <constraints nullable="false" />
-            </column>
-            <column name="phone" type="varchar">
-                <constraints nullable="false" unique="true" />
+            <column name="rating" type="int"  >
+                <constraints  checkConstraint="rating BETWEEN 1 AND 5 " />
             </column>
         </createTable>
         <addForeignKeyConstraint baseTableName="rating" baseColumnNames="user_id" constraintName="fk_rating_user" referencedTableName="USERS"

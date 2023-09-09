@@ -4,27 +4,26 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table
 public class Menu {
+    //Fields
     @Id
     @Column
-    private  int id;
-    @Column
-    private int restaurant_id;
-    @Column
+    private int id;
+
+    private int restaurantId;
     private String dishName;
-    @Column
     private double price;
 
-
+    //RelationShip With other entities
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "restaurant_id",referencedColumnName = "id",insertable = false,updatable = false)
+    @JoinColumn(name = "restaurantId", referencedColumnName = "id", insertable = false, updatable = false)
     private Restaurant restaurant;
 
+    //Getters and Setters
     public int getId() {
         return id;
     }
@@ -33,12 +32,12 @@ public class Menu {
         this.id = id;
     }
 
-    public int getRestaurant_id() {
-        return restaurant_id;
+    public int getRestaurantId() {
+        return restaurantId;
     }
 
-    public void setRestaurant_id(int restaurant_id) {
-        this.restaurant_id = restaurant_id;
+    public void setRestaurantId(int restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
     public String getDishName() {
@@ -65,24 +64,25 @@ public class Menu {
         this.restaurant = restaurant;
     }
 
+    //Object class Methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Menu menu = (Menu) o;
-        return id == menu.id && restaurant_id == menu.restaurant_id && Double.compare(price, menu.price) == 0 && Objects.equals(dishName, menu.dishName);
+        return id == menu.id && restaurantId == menu.restaurantId && Double.compare(price, menu.price) == 0 && Objects.equals(dishName, menu.dishName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, restaurant_id, dishName, price);
+        return Objects.hash(id, restaurantId, dishName, price);
     }
 
     @Override
     public String toString() {
         return "Menu{" +
                 "id=" + id +
-                ", restaurant_id=" + restaurant_id +
+                ", restaurant_id=" + restaurantId +
                 ", dishName='" + dishName + '\'' +
                 ", price=" + price +
                 '}';
