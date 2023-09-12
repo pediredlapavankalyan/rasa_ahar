@@ -62,8 +62,14 @@
 			<scope>test</scope>
 		</dependency>
 
+<!--		&lt;!&ndash; ... other dependency elements ... &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-security</artifactId>-->
+<!--		</dependency>-->
 
-</dependencies>
+
+	</dependencies>
 
 	<build>
 		<plugins>

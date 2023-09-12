@@ -1,11 +1,15 @@
 package com.imag.rasa_ahar.rest;
 
 import com.imag.rasa_ahar.entities.Menu;
+import com.imag.rasa_ahar.entities.Order;
+import com.imag.rasa_ahar.entities.OrderDetails;
 import com.imag.rasa_ahar.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -28,5 +32,9 @@ public class OrderController {
         return orderService.orderDetails(orderId);
     }
 
-    
+    @PostMapping("/user/order/{user}")
+    @Operation(summary = "To place a new order",description = "Provide dish id and quantity ")
+    public Order newOrder(@PathVariable("user")int userId, @RequestBody List<OrderDetails> orderDetails){
+        return orderService.placeOrder(userId, orderDetails);
+    }
 }

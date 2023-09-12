@@ -7,4 +7,5 @@ public interface UserRepo extends JpaRepository<User,Integer> {
     //derived Query
     //Phone is field in User Entity
     User findByPhone(long phone);
+    User findByName(String name);
 }

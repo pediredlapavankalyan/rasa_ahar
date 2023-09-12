@@ -3,6 +3,8 @@ package com.imag.rasa_ahar.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Objects;
 import java.util.Set;
 
@@ -19,6 +21,7 @@ public class Order {
     private double orderTotal;
     private String status;
     private int driverId;
+    private LocalDateTime time;
 
     //RelationShip With other entities
     @ManyToOne
@@ -48,15 +51,6 @@ public class Order {
     public void setId(int id) {
         this.id = id;
     }
-
-    public int getUser_id() {
-        return userId;
-    }
-
-    public void setUser_id(int user_id) {
-        this.userId = user_id;
-    }
-
     public int getRestaurant_id() {
         return restaurantId;
     }
@@ -143,6 +137,14 @@ public class Order {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 
     //Object class Methods

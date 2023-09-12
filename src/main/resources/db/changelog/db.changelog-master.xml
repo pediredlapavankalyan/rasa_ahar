@@ -14,6 +14,7 @@
     <include file="classpath:db/changelog/001-create-table-order_details.xml"/>
     <include file="classpath:db/changelog/001-create-table-payment.xml"/>
     <include file="classpath:db/changelog/001-create-table-rating.xml"/>
+    <include file="classpath:db/changelog/001-alter-table-orders.xml"/>
 
 
     <!--  Include other files here -->
