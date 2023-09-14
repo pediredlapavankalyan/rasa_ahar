@@ -27,7 +27,7 @@ public class AddressController {
     //To find address of an user
     @GetMapping("/user/userAddress/{phone}")//url
     @Operation(summary = "To get all address of a user", description = "provide user phone number")
-    public List<Address> allAddress(@PathVariable("phone") long phone) {
+    public List<Address> allAddress(@PathVariable("phone") String phone) {
         return addressService.allAddresses(phone);
     }
 }

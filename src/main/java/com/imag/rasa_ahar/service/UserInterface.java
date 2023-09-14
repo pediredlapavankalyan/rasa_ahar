@@ -12,6 +12,6 @@ public interface UserInterface {
 
     List<User> allUsers();
 
-    User userByPhone(long phone);
+    User userByPhone(String phone);
     Set<Order> orderHistory(int id);
 }

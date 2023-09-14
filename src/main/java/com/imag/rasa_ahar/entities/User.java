@@ -17,7 +17,8 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private long phone;
+    private String phone;
+    private  String role;
 
 
     //Relationship of User with other entities
@@ -67,12 +68,20 @@ public class User {
         this.password = password;
     }
 
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Set<Address> getAddresses() {
@@ -98,6 +107,7 @@ public class User {
     public void setUserRatings(Set<Rating> userRatings) {
         this.userRatings = userRatings;
     }
+
 
     //Object class Methods
     @Override

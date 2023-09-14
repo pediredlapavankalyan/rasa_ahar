@@ -26,7 +26,7 @@ public class AddressService implements AddressInterface {
 
     //To get all address of an user
     @Override
-    public List<Address> allAddresses(long phone) {
+    public List<Address> allAddresses(String phone) {
         return addressRepo.findAllByUserId(userRepo.findByPhone(phone).getId());
     }
 

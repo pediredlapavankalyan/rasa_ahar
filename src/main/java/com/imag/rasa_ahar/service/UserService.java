@@ -2,11 +2,12 @@ package com.imag.rasa_ahar.service;
 
 import com.imag.rasa_ahar.entities.Order;
 import com.imag.rasa_ahar.entities.User;
-import com.imag.rasa_ahar.entities.Validation;
 import com.imag.rasa_ahar.exceptions.InValidMobileNumber;
 import com.imag.rasa_ahar.repo.UserRepo;
+import com.imag.rasa_ahar.validation.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -21,6 +22,7 @@ public class UserService implements UserInterface {
     @Autowired
     Validation validation;
 
+
     @Override
     public User newUser(User user) throws InValidMobileNumber {
         if (userRepo.findByPhone(user.getPhone()) != null) {
@@ -28,8 +30,16 @@ public class UserService implements UserInterface {
         } else {
             //validation
             if (validation.verifyMobile(user.getPhone())) {
-                userRepo.save(user);
-                return user;
+                BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+                String encodedPassword = passwordEncoder.encode(user.getPassword());
+                user.setPassword(encodedPassword);
+                if (user.getEmail().matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")) {
+                    userRepo.save(user);
+                    return user;
+                } else {
+                    throw new RuntimeException();
+                }
+
             } else {
                 throw new InValidMobileNumber();
             }
@@ -43,7 +53,7 @@ public class UserService implements UserInterface {
     }
 
     @Override
-    public User userByPhone(long phone) {
+    public User userByPhone(String phone) {
         User user = userRepo.findByPhone(phone);
         if (user == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "NO USER FOUND WITH THAT PHONE NUMBER");

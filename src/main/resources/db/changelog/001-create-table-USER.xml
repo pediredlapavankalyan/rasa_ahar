@@ -13,10 +13,10 @@
           <column name="email" type="varchar(100)">
               <constraints nullable="false" unique="true"  />
           </column>
-          <column name="password" type="varchar(100)" >
+          <column name="password" type="varchar(200)" >
               <constraints nullable="false" />
           </column>
-          <column name="phone" type="bigint">
+          <column name="phone" type="varchar(10)">
               <constraints nullable="false" unique="true" />
           </column>
       </createTable>
@@ -24,6 +24,9 @@
           <dropTable tableName="USER"/>
       </rollback>
   </changeSet>
-
-
+    <changeSet id="adding_role_column" author="pavan_kalyan">
+        <addColumn tableName="USERS">
+            <column name="role" type="varchar(20)"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

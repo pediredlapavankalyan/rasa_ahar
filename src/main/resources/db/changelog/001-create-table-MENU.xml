@@ -13,7 +13,7 @@
                <constraints nullable="false" />
            </column>
             <column name="dish_name" type="varchar(100)"><constraints nullable="false"/></column>
-            <column name="price" type="decimal(10,2)" defaultValue="0.0" />
+            <column name="price" type="money" />
         </createTable>
         <addForeignKeyConstraint baseTableName="MENU" baseColumnNames="restaurant_id" constraintName="fk_menu_restaurant" referencedTableName="RESTAURANT"
                                  referencedColumnNames="id" onDelete="CASCADE"/>

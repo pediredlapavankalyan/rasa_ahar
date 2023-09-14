@@ -14,7 +14,7 @@
             <column name="order_total" type="decimal(10,2)" defaultValue="0.0"/>
             <column name="status" type="varchar(100)"><constraints nullable="false"/></column>
             <column name="driver_id" type="int"/>
-            <column name="time" type="time"><constraints nullable="false"/></column>
+            <column name="time" type="datetime"><constraints nullable="false"/></column>
         </createTable>
         <addForeignKeyConstraint baseTableName="ORDERS" baseColumnNames="user_id" constraintName="fk_order_user" referencedTableName="USERS"
                                  referencedColumnNames="id" onDelete="CASCADE"  />

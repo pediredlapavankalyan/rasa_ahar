@@ -4,20 +4,23 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
 
-    <changeSet id="create_payment_table" author="pavan_kalyan">
-        <createTable tableName="PAYMENT" >
-            <column name="id" type="int"  autoIncrement="true" startWith="500015" incrementBy="10" >
-                <constraints primaryKey="true"/>
-            </column>
-            <column name="order_id" type="int"><constraints nullable="false" unique="true" /></column>
-            <column name="payment_mode" type="varchar(100)"><constraints nullable="false" /></column>
-            <column name="amount" type="decimal(10,2)" defaultValue="0.0" />
-            <column name="status" type="varchar(100)"><constraints nullable="false" /></column>
-        </createTable>
+   <changeSet id="create_payment_table" author="pavan_kalyan">
+       <createTable tableName="PAYMENT">
+           <column name="id" type="int" autoIncrement="true" startWith="50001" incrementBy="1"><constraints primaryKey="true" /></column>
+           <column name="order_id" type="int" ><constraints unique="true"/> </column>
+           <column name="payment_mode" type="varchar(20)"/>
+           <column name="status" type="varchar(20)"/>
+
+       </createTable>
         <addForeignKeyConstraint baseTableName="PAYMENT" baseColumnNames="order_id" constraintName="fk_payment_order" referencedTableName="ORDERS"
                                  referencedColumnNames="id"/>
         <rollback>
             <dropTable tableName="PAYMENT"/>
         </rollback>
+    </changeSet>
+    <changeSet id="add_amount_column" author="pavan_kalyan">
+        <addColumn tableName="PAYMENT">
+            <column name="amount" type="MONEY"/>
+        </addColumn>
     </changeSet>
 </databaseChangeLog>
