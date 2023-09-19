@@ -1,4 +1,4 @@
-package com.imag.rasa_ahar.dto;
+package com.imag.rasa_ahar.responseDto;
 
 import com.imag.rasa_ahar.entities.User;
 import org.springframework.stereotype.Component;

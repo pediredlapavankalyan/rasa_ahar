@@ -2,6 +2,7 @@ package com.imag.rasa_ahar.service;
 
 import com.imag.rasa_ahar.entities.Order;
 import com.imag.rasa_ahar.entities.User;
+import com.imag.rasa_ahar.exceptions.InValidEmailFormatException;
 import com.imag.rasa_ahar.exceptions.InValidMobileNumber;
 import com.imag.rasa_ahar.repo.UserRepo;
 import com.imag.rasa_ahar.validation.Validation;
@@ -33,13 +34,12 @@ public class UserService implements UserInterface {
                 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
                 String encodedPassword = passwordEncoder.encode(user.getPassword());
                 user.setPassword(encodedPassword);
-                if (user.getEmail().matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")) {
+                if (validation.verifyEmail(user.getEmail())) {
                     userRepo.save(user);
                     return user;
                 } else {
-                    throw new RuntimeException();
+                    throw new InValidEmailFormatException("Enter a Valid email ");
                 }
-
             } else {
                 throw new InValidMobileNumber();
             }

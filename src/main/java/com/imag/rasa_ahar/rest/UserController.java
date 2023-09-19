@@ -3,7 +3,7 @@ package com.imag.rasa_ahar.rest;
 import com.imag.rasa_ahar.entities.Order;
 import com.imag.rasa_ahar.entities.User;
 import com.imag.rasa_ahar.exceptions.InValidMobileNumber;
-import com.imag.rasa_ahar.dto.UserResponse;
+import com.imag.rasa_ahar.responseDto.UserResponse;
 import com.imag.rasa_ahar.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class UserController {
     UserResponse userResponse;
 
     //To Register new user
-    @PostMapping("/User/new-user")//Url
+    @PostMapping("/user/new-user")//Url
     @Operation(summary = "To Add new User", description = "give user details in json format")
     public UserResponse addUser(@RequestBody User user) {
         try {
@@ -32,7 +32,7 @@ public class UserController {
     }
 
     //To Get Users List
-    @GetMapping("/Users")//Url
+    @GetMapping("/admin/users-list")//Url
     @Operation(summary = "To get list of users ", description = "run the url to get list of users")
     public List<UserResponse> getUsers() {
         return userResponse.convert(userService.allUsers());
