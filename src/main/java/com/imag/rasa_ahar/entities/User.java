@@ -27,7 +27,7 @@ public class User {
     @JsonIgnore
     private Set<Address> addresses;
 
-    @OneToMany(mappedBy = "user_ordered")
+    @OneToMany(mappedBy = "user_ordered",fetch =FetchType.EAGER)
     @JsonIgnore
     private Set<Order> orders;
 

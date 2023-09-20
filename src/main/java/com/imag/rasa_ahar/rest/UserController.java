@@ -3,10 +3,17 @@ package com.imag.rasa_ahar.rest;
 import com.imag.rasa_ahar.entities.Order;
 import com.imag.rasa_ahar.entities.User;
 import com.imag.rasa_ahar.exceptions.InValidMobileNumber;
+import com.imag.rasa_ahar.requestDto.AuthenticateRequest;
 import com.imag.rasa_ahar.responseDto.UserResponse;
+import com.imag.rasa_ahar.service.JwtService;
 import com.imag.rasa_ahar.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +26,10 @@ public class UserController {
     UserService userService;
     @Autowired
     UserResponse userResponse;
+    @Autowired
+    JwtService jwtService;
+    @Autowired
+    AuthenticationManager authenticationManager;
 
     //To Register new user
     @PostMapping("/user/new-user")//Url
@@ -33,6 +44,7 @@ public class UserController {
 
     //To Get Users List
     @GetMapping("/admin/users-list")//Url
+    //@PreAuthorize("hasAuthority('admin')")
     @Operation(summary = "To get list of users ", description = "run the url to get list of users")
     public List<UserResponse> getUsers() {
         return userResponse.convert(userService.allUsers());
@@ -49,6 +61,18 @@ public class UserController {
     @GetMapping("/user/Phone/{phone}")//Url
     public UserResponse getUser(@PathVariable("phone") String phone) {
         return userResponse.convert(userService.userByPhone(phone));
+    }
+
+    //JWT
+    @PostMapping("/user/authenticate")
+    public String authenticateAndGetToken(@RequestBody AuthenticateRequest authenticateRequest){
+        Authentication authentication= authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticateRequest.getUsername(),authenticateRequest.getPassword()));
+        if(authentication.isAuthenticated()){
+            return jwtService.generateToken(authenticateRequest.getUsername());
+        }
+        else{
+            throw new UsernameNotFoundException("Invalid user");
+        }
     }
 
 }
