@@ -1,11 +1,24 @@
 package com.imag.rasa_ahar.requestDto;
 
+import jakarta.validation.Valid;
+
 public class UserRequest {
     private String name;
     private String email;
     private String password;
     private String phone;
     private  String role;
+
+    public UserRequest(String name, String email, String password, String phone, String role) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.role = role;
+    }
+
+    public UserRequest() {
+    }
 
     public String getName() {
         return name;

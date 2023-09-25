@@ -4,34 +4,24 @@ import com.imag.rasa_ahar.entities.User;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
 public class UserResponse {
-    private int id;
     private String name;
     private String email;
     private String phone;
 
-
-    public UserResponse convert(User user){
-        UserResponse userResponse = new UserResponse();
-        userResponse.setId(user.getId());
-        userResponse.setEmail(user.getEmail());
-        userResponse.setName(user.getName());
-        userResponse.setPhone(user.getPhone());
-        return userResponse;
-    }
-    public List<UserResponse> convert(List<User> users){
-        return users.stream().map(this::convert).collect(Collectors.toList());
-    }
-    public int getId() {
-        return id;
+    public UserResponse() {
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public UserResponse( String name, String email, String phone) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
     }
+
 
     public String getName() {
         return name;
@@ -55,5 +45,18 @@ public class UserResponse {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserResponse that = (UserResponse) o;
+        return Objects.equals(name, that.name) && Objects.equals(email, that.email) && Objects.equals(phone, that.phone);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, email, phone);
     }
 }

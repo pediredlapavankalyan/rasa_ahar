@@ -2,6 +2,7 @@ package com.imag.rasa_ahar.rest;
 
 import com.imag.rasa_ahar.entities.Menu;
 import com.imag.rasa_ahar.entities.Restaurant;
+import com.imag.rasa_ahar.requestDto.RestaurantRequest;
 import com.imag.rasa_ahar.service.RestaurantService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +20,21 @@ public class RestaurantController {
     //To Register a new restaurant
     @PostMapping("/Restaurant")//Url
     @Operation(summary = "To Add a new restaurant", description = "provide restaurant details")
-    public Restaurant addRestaurant(@RequestBody Restaurant restaurant) {
-        return restaurantService.newRestaurant(restaurant);
+    public RestaurantRequest addRestaurant(@RequestBody RestaurantRequest restaurantRequest) {
+        return restaurantService.newRestaurant(restaurantRequest);
     }
 
     //To get all restaurants
     @GetMapping("/Restaurants")//url
     @Operation(summary = "To get all restaurants ", description = "execute url to get all restaurants registered")
-    public List<Restaurant> getAllRestaurants() {
+    public List<RestaurantRequest> getAllRestaurants() {
         return restaurantService.allRestaurants();
     }
 
     //Get restaurant by phone number
     @GetMapping("/restaurant/{phone}")//Url
     @Operation(summary = "To get  restaurant ", description = "Enter phone number along with url")
-    public Restaurant getRestaurants(@PathVariable("phone") long phone) {
+    public RestaurantRequest getRestaurants(@PathVariable("phone") long phone) {
         return restaurantService.getByPhone(phone);
     }
 
@@ -67,7 +68,7 @@ public class RestaurantController {
 
     @GetMapping("/restaurant/dish/name")
     @Operation(summary = "To get the set of restaurants providing that dish",description = "Enter dish name")
-    public Set<Restaurant> restaurants(String dishName){
+    public Set<RestaurantRequest> restaurants(String dishName){
         return restaurantService.restaurantsByDishName(dishName);
     }
 }

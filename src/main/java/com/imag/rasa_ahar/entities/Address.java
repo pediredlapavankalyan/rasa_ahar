@@ -17,6 +17,7 @@ public class Address {
     private int userId;
     private String state;
     private String city;
+    @Column(name = "Street")
     private String street;
     private int pincode;
 

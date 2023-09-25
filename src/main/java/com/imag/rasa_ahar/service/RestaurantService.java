@@ -5,12 +5,15 @@ import com.imag.rasa_ahar.entities.Restaurant;
 import com.imag.rasa_ahar.repo.MenuRepo;
 import com.imag.rasa_ahar.repo.RatingRepo;
 import com.imag.rasa_ahar.repo.RestaurantRepo;
+import com.imag.rasa_ahar.requestDto.RestaurantRequest;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class RestaurantService implements RestaurantInterface {
@@ -21,25 +24,40 @@ public class RestaurantService implements RestaurantInterface {
     RatingRepo ratingRepo;
     @Autowired
     MenuRepo menuRepo;
+    @Autowired
+    ModelMapper modelMapper;
+
+    public Restaurant dtoToRestaurant(RestaurantRequest restaurantRequest){
+        return modelMapper.map(restaurantRequest,Restaurant.class);
+    }
+    public RestaurantRequest restaurantToDto(Restaurant restaurant){
+        return modelMapper.map(restaurant,RestaurantRequest.class);
+    }
+    public List<RestaurantRequest> restaurantListToDto(List<Restaurant> restaurants){
+        return restaurants.stream().map(r->modelMapper.map(r,RestaurantRequest.class)).collect(Collectors.toList());
+    }
+
+
 
     @Override
-    public Restaurant newRestaurant(Restaurant restaurant) throws ResponseStatusException {
-        if (restaurantRepo.findByPhone(restaurant.getPhone()) != null)
+    public RestaurantRequest newRestaurant(RestaurantRequest restaurantRequest) throws ResponseStatusException {
+        if (restaurantRepo.findByPhone(restaurantRequest.getPhone()) != null)
             throw new ResponseStatusException(HttpStatus.ALREADY_REPORTED, "Restaurant already registered");
         else {
+            Restaurant restaurant = dtoToRestaurant(restaurantRequest);
             restaurantRepo.save(restaurant);
-            return restaurant;
+            return restaurantToDto(restaurant);
         }
     }
 
     @Override
-    public List<Restaurant> allRestaurants() {
-        return restaurantRepo.findAll();
+    public List<RestaurantRequest> allRestaurants() {
+        return restaurantListToDto(restaurantRepo.findAll());
     }
 
     @Override
-    public Restaurant getByPhone(long phone) {
-        return restaurantRepo.findByPhone(phone);
+    public RestaurantRequest getByPhone(long phone) {
+        return restaurantToDto(restaurantRepo.findByPhone(phone));
     }
 
     @Override
@@ -87,7 +105,7 @@ public class RestaurantService implements RestaurantInterface {
         }
     }
 
-    public Set<Restaurant> restaurantsByDishName(String dishName){
+    public Set<RestaurantRequest> restaurantsByDishName(String dishName){
         Set<Restaurant> restaurants= new LinkedHashSet<>();
         List<Menu> restaurantIds = menuRepo.findByDishNameContainingIgnoreCase(dishName);
         for(Menu restaurantId:restaurantIds){
@@ -96,6 +114,6 @@ public class RestaurantService implements RestaurantInterface {
                 restaurants.add(restaurant.get());
             }
         }
-        return  restaurants;
+        return  restaurants.stream().map(r->modelMapper.map(r,RestaurantRequest.class)).collect(Collectors.toSet());
     }
 }

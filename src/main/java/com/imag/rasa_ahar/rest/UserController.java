@@ -4,6 +4,7 @@ import com.imag.rasa_ahar.entities.Order;
 import com.imag.rasa_ahar.entities.User;
 import com.imag.rasa_ahar.exceptions.InValidMobileNumber;
 import com.imag.rasa_ahar.requestDto.AuthenticateRequest;
+import com.imag.rasa_ahar.requestDto.UserRequest;
 import com.imag.rasa_ahar.responseDto.UserResponse;
 import com.imag.rasa_ahar.service.JwtService;
 import com.imag.rasa_ahar.service.UserService;
@@ -34,9 +35,9 @@ public class UserController {
     //To Register new user
     @PostMapping("/user/new-user")//Url
     @Operation(summary = "To Add new User", description = "give user details in json format")
-    public UserResponse addUser(@RequestBody User user) {
+    public UserResponse addUser(@RequestBody UserRequest user) {
         try {
-             return userResponse.convert(userService.newUser(user));
+             return userService.newUser(user);
         } catch (InValidMobileNumber e) {
             throw new RuntimeException(e.toString());
         }
@@ -47,7 +48,7 @@ public class UserController {
     //@PreAuthorize("hasAuthority('admin')")
     @Operation(summary = "To get list of users ", description = "run the url to get list of users")
     public List<UserResponse> getUsers() {
-        return userResponse.convert(userService.allUsers());
+        return userService.allUsers();
     }
 
     //To Get Order history of an user
@@ -60,7 +61,7 @@ public class UserController {
     //To search the user using their phone number
     @GetMapping("/user/Phone/{phone}")//Url
     public UserResponse getUser(@PathVariable("phone") String phone) {
-        return userResponse.convert(userService.userByPhone(phone));
+        return userService.userByPhone(phone);
     }
 
     //JWT

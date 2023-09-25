@@ -7,6 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class RasaAharApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RasaAharApplication.class, args);
+			SpringApplication.run(RasaAharApplication.class, args);
 	}
 }
