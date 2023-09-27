@@ -6,6 +6,7 @@ import com.imag.rasa_ahar.requestDto.UserRequest;
 import com.imag.rasa_ahar.responseDto.UserResponse;
 import com.imag.rasa_ahar.validation.Validation;
 import org.junit.jupiter.api.*;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import static org.mockito.Mockito.when;
 public class UserServiceTest {
 
 
+    @InjectMocks
     private static UserService userService;
     private static UserRequest userRequest;
     private static User user;
@@ -45,7 +47,9 @@ public class UserServiceTest {
         //we used @Mock Annotation so no need below 2 lines of code
         //  userRepoMock = Mockito.mock(UserRepo.class);
         // validation = Mockito.mock(Validation.class);
-        this.userService = new UserService(userRepoMock, validation);
+
+        //we used injectmocks so that no need to initialize the userservice
+       // this.userService = new UserService(userRepoMock, validation);
         userRequest = new UserRequest("pavan", "pk@gmail.com", "12345", "7036110229", "user");
         user = new User(0, "pavan", "pk@gmail.com", "12345", "7036110229", "user");
         userResponse = new UserResponse("pavan", "pk@gmail.com", "7036110229");

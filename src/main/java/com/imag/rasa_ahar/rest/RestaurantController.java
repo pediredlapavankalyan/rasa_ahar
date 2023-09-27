@@ -41,7 +41,7 @@ public class RestaurantController {
     //To Update phone number
     @PutMapping("/restaurant/PhoneNumber")//Url
     @Operation(summary = "To update phone number", description = "Enter both old and new phone numbers")
-    public String updateNumber(@RequestParam String oldNum, @RequestParam String newNum) {
+    public RestaurantDto updateNumber(@RequestParam String oldNum, @RequestParam String newNum) {
         return restaurantService.updatePhone(oldNum, newNum);
     }
 

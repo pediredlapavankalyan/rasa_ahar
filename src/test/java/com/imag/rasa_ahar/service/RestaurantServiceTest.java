@@ -79,26 +79,14 @@ class RestaurantServiceTest {
 
     @Test
     void getByPhone() {
-        assertEquals();
+        when(restaurantRepo.findByPhone("9232131239")).thenReturn(restaurant);
+        assertEquals(restaurantDto,restaurantService.getByPhone("9232131239"));
     }
 
     @Test
     void updatePhone() {
+        when(restaurantRepo.findByPhone("9232131239")).thenReturn(restaurant);
+        assertEquals("9491265379",restaurantService.updatePhone("9232131239","9491265379").getPhone());
     }
 
-    @Test
-    void topRestaurants() {
-    }
-
-    @Test
-    void topRatedRestaurants() {
-    }
-
-    @Test
-    void getDishes() {
-    }
-
-    @Test
-    void restaurantsByDishName() {
-    }
 }

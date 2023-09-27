@@ -12,7 +12,7 @@ public interface RestaurantInterface {
 
     RestaurantDto getByPhone(String phone);
 
-    String updatePhone(String oldNum, String newNum);
+    RestaurantDto updatePhone(String oldNum, String newNum);
 
     Set<RestaurantDto> restaurantsByDishName(String dishName);
 }

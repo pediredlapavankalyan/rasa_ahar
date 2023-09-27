@@ -69,12 +69,12 @@ public class RestaurantService implements RestaurantInterface {
     }
 
     @Override
-    public String updatePhone(String oldNum, String newNum) {
+    public RestaurantDto updatePhone(String oldNum, String newNum) {
         Restaurant restaurant = restaurantRepo.findByPhone(oldNum);
         if (restaurant != null) {
             restaurant.setPhone(newNum);
             restaurantRepo.save(restaurant);
-            return restaurant.toString();
+            return restaurantToDto(restaurant);
         } else {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Incorrect Old Phone NUmber");
         }
