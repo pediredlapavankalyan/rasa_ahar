@@ -1,19 +1,18 @@
 package com.imag.rasa_ahar.service;
 
-import com.imag.rasa_ahar.entities.Restaurant;
-import com.imag.rasa_ahar.requestDto.RestaurantRequest;
+import com.imag.rasa_ahar.requestDto.RestaurantDto;
 
 import java.util.List;
 import java.util.Set;
 
 public interface RestaurantInterface {
-    RestaurantRequest newRestaurant(RestaurantRequest restaurant);
+    RestaurantDto newRestaurant(RestaurantDto restaurant);
 
-    List<RestaurantRequest> allRestaurants();
+    List<RestaurantDto> allRestaurants();
 
-    RestaurantRequest getByPhone(long phone);
+    RestaurantDto getByPhone(String phone);
 
-    String updatePhone(long oldNum, long newNum);
+    String updatePhone(String oldNum, String newNum);
 
-    Set<RestaurantRequest> restaurantsByDishName(String dishName);
+    Set<RestaurantDto> restaurantsByDishName(String dishName);
 }

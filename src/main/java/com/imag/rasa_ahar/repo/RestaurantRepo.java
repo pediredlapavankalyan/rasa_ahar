@@ -9,7 +9,7 @@ import java.util.Set;
 public interface RestaurantRepo extends JpaRepository<Restaurant,Integer> {
     //Derived Query
     //Phone is field in Restaurant Entity
-    Restaurant findByPhone(long phone);
+    Restaurant findByPhone(String phone);
 
 
 }

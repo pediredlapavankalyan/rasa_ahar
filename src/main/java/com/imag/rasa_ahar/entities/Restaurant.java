@@ -16,10 +16,24 @@ public class Restaurant {
     private int id;
     private String name;
     private String address;
-    private long phone;
+    private String phone;
     private String city;
     private String state;
     private int pinCode;
+
+    public Restaurant() {
+    }
+
+    public Restaurant(int id, String name, String address, String phone, String city, String state, int pinCode) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.city = city;
+        this.state = state;
+        this.pinCode = pinCode;
+    }
+
     //RelationShip With other entities
     @OneToMany(mappedBy = "rated_restaurant")
     @JsonIgnore
@@ -58,11 +72,11 @@ public class Restaurant {
         this.address = address;
     }
 
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

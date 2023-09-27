@@ -24,6 +24,9 @@
             <dropTable tableName="RESTAURANT"/>
         </rollback>
     </changeSet>
+    <changeSet id="change_datatype" author="pavan_kalyan">
+        <modifyDataType tableName="RESTAURANT" columnName="phone" newDataType="varchar(10)"/>
+    </changeSet>
 
 
 </databaseChangeLog>

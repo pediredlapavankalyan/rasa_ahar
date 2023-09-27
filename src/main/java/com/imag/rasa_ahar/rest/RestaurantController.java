@@ -2,7 +2,7 @@ package com.imag.rasa_ahar.rest;
 
 import com.imag.rasa_ahar.entities.Menu;
 import com.imag.rasa_ahar.entities.Restaurant;
-import com.imag.rasa_ahar.requestDto.RestaurantRequest;
+import com.imag.rasa_ahar.requestDto.RestaurantDto;
 import com.imag.rasa_ahar.service.RestaurantService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,28 +20,28 @@ public class RestaurantController {
     //To Register a new restaurant
     @PostMapping("/Restaurant")//Url
     @Operation(summary = "To Add a new restaurant", description = "provide restaurant details")
-    public RestaurantRequest addRestaurant(@RequestBody RestaurantRequest restaurantRequest) {
-        return restaurantService.newRestaurant(restaurantRequest);
+    public RestaurantDto addRestaurant(@RequestBody RestaurantDto restaurantDto) {
+        return restaurantService.newRestaurant(restaurantDto);
     }
 
     //To get all restaurants
     @GetMapping("/Restaurants")//url
     @Operation(summary = "To get all restaurants ", description = "execute url to get all restaurants registered")
-    public List<RestaurantRequest> getAllRestaurants() {
+    public List<RestaurantDto> getAllRestaurants() {
         return restaurantService.allRestaurants();
     }
 
     //Get restaurant by phone number
     @GetMapping("/restaurant/{phone}")//Url
     @Operation(summary = "To get  restaurant ", description = "Enter phone number along with url")
-    public RestaurantRequest getRestaurants(@PathVariable("phone") long phone) {
+    public RestaurantDto getRestaurants(@PathVariable("phone") String phone) {
         return restaurantService.getByPhone(phone);
     }
 
     //To Update phone number
     @PutMapping("/restaurant/PhoneNumber")//Url
     @Operation(summary = "To update phone number", description = "Enter both old and new phone numbers")
-    public String updateNumber(@RequestParam long oldNum, @RequestParam long newNum) {
+    public String updateNumber(@RequestParam String oldNum, @RequestParam String newNum) {
         return restaurantService.updatePhone(oldNum, newNum);
     }
 
@@ -68,7 +68,7 @@ public class RestaurantController {
 
     @GetMapping("/restaurant/dish/name")
     @Operation(summary = "To get the set of restaurants providing that dish",description = "Enter dish name")
-    public Set<RestaurantRequest> restaurants(String dishName){
+    public Set<RestaurantDto> restaurants(String dishName){
         return restaurantService.restaurantsByDishName(dishName);
     }
 }

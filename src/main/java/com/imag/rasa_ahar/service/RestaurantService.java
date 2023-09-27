@@ -5,7 +5,7 @@ import com.imag.rasa_ahar.entities.Restaurant;
 import com.imag.rasa_ahar.repo.MenuRepo;
 import com.imag.rasa_ahar.repo.RatingRepo;
 import com.imag.rasa_ahar.repo.RestaurantRepo;
-import com.imag.rasa_ahar.requestDto.RestaurantRequest;
+import com.imag.rasa_ahar.requestDto.RestaurantDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,41 +27,49 @@ public class RestaurantService implements RestaurantInterface {
     @Autowired
     ModelMapper modelMapper;
 
-    public Restaurant dtoToRestaurant(RestaurantRequest restaurantRequest){
-        return modelMapper.map(restaurantRequest,Restaurant.class);
+    public RestaurantService() {
     }
-    public RestaurantRequest restaurantToDto(Restaurant restaurant){
-        return modelMapper.map(restaurant,RestaurantRequest.class);
+
+    public RestaurantService(RestaurantRepo restaurantRepo,ModelMapper modelMapper) {
+        this.restaurantRepo = restaurantRepo;
+        this.modelMapper=modelMapper;
     }
-    public List<RestaurantRequest> restaurantListToDto(List<Restaurant> restaurants){
-        return restaurants.stream().map(r->modelMapper.map(r,RestaurantRequest.class)).collect(Collectors.toList());
+
+    public Restaurant dtoToRestaurant(RestaurantDto restaurantDto){
+        return modelMapper.map(restaurantDto,Restaurant.class);
+    }
+    public RestaurantDto restaurantToDto(Restaurant restaurant){
+        return modelMapper.map(restaurant, RestaurantDto.class);
+    }
+    public List<RestaurantDto> restaurantListToDto(List<Restaurant> restaurants){
+        return restaurants.stream().map(r->modelMapper.map(r, RestaurantDto.class)).collect(Collectors.toList());
     }
 
 
 
     @Override
-    public RestaurantRequest newRestaurant(RestaurantRequest restaurantRequest) throws ResponseStatusException {
-        if (restaurantRepo.findByPhone(restaurantRequest.getPhone()) != null)
+    public RestaurantDto newRestaurant(RestaurantDto restaurantDto) throws ResponseStatusException {
+        if (restaurantRepo.findByPhone(restaurantDto.getPhone()) != null)
             throw new ResponseStatusException(HttpStatus.ALREADY_REPORTED, "Restaurant already registered");
         else {
-            Restaurant restaurant = dtoToRestaurant(restaurantRequest);
+            Restaurant restaurant = dtoToRestaurant(restaurantDto);
             restaurantRepo.save(restaurant);
             return restaurantToDto(restaurant);
         }
     }
 
     @Override
-    public List<RestaurantRequest> allRestaurants() {
+    public List<RestaurantDto> allRestaurants() {
         return restaurantListToDto(restaurantRepo.findAll());
     }
 
     @Override
-    public RestaurantRequest getByPhone(long phone) {
+    public RestaurantDto getByPhone(String phone) {
         return restaurantToDto(restaurantRepo.findByPhone(phone));
     }
 
     @Override
-    public String updatePhone(long oldNum, long newNum) {
+    public String updatePhone(String oldNum, String newNum) {
         Restaurant restaurant = restaurantRepo.findByPhone(oldNum);
         if (restaurant != null) {
             restaurant.setPhone(newNum);
@@ -105,7 +113,7 @@ public class RestaurantService implements RestaurantInterface {
         }
     }
 
-    public Set<RestaurantRequest> restaurantsByDishName(String dishName){
+    public Set<RestaurantDto> restaurantsByDishName(String dishName){
         Set<Restaurant> restaurants= new LinkedHashSet<>();
         List<Menu> restaurantIds = menuRepo.findByDishNameContainingIgnoreCase(dishName);
         for(Menu restaurantId:restaurantIds){
@@ -114,6 +122,6 @@ public class RestaurantService implements RestaurantInterface {
                 restaurants.add(restaurant.get());
             }
         }
-        return  restaurants.stream().map(r->modelMapper.map(r,RestaurantRequest.class)).collect(Collectors.toSet());
+        return  restaurants.stream().map(r->modelMapper.map(r, RestaurantDto.class)).collect(Collectors.toSet());
     }
 }

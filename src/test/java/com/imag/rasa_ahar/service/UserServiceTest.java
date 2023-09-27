@@ -38,6 +38,8 @@ public class UserServiceTest {
 
     private List<User> users = new ArrayList<>();
 
+
+
     @BeforeEach
     public void setUp() {
         //we used @Mock Annotation so no need below 2 lines of code
