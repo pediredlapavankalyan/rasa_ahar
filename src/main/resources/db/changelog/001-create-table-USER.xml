@@ -29,4 +29,5 @@
             <column name="role" type="varchar(20)"/>
         </addColumn>
     </changeSet>
+
 </databaseChangeLog>

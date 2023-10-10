@@ -15,4 +15,5 @@ public interface RestaurantInterface {
     RestaurantDto updatePhone(String oldNum, String newNum);
 
     Set<RestaurantDto> restaurantsByDishName(String dishName);
+    public List<RestaurantDto> restaurantsPage(int num);
 }

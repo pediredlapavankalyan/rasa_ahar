@@ -19,22 +19,22 @@ public class OrderController {
     OrderService orderService;//os denotes OrderService
 
     //To get The Order Status
-    @GetMapping("/User/order/orderStatus")//url
+    @GetMapping("/com.imag.rasa-ahar/v1/user/order/orderStatus")//url
     @Operation(summary = "To get order Status", description = "provide order id to get the status")
     public String orderStatus(@RequestParam int orderId) {
         return orderService.status(orderId);
     }
 
     //To Get complete details of order
-    @GetMapping("/user/order/orderDetails/{id}")//Url
+    @GetMapping("/com.imag.rasa-ahar/v1/user/order/orderDetails/{id}")//Url
     @Operation(summary = "To get order details", description = "Enter Order id to get the details of order")
     public Set<Menu> details(@PathVariable("id") int orderId) {
         return orderService.orderDetails(orderId);
     }
 
-    @PostMapping("/user/order/{user}")
+    @PostMapping("/com.imag.rasa-ahar/v1/user/order")
     @Operation(summary = "To place a new order",description = "Provide dish id and quantity ")
-    public Order newOrder(@PathVariable("user")int userId, @RequestBody List<OrderDetails> orderDetails){
-        return orderService.placeOrder(userId, orderDetails);
+    public Order newOrder(@RequestBody List<OrderDetails> orderDetails){
+        return orderService.placeOrder( orderDetails);
     }
 }

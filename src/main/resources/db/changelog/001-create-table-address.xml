@@ -21,5 +21,8 @@
             <dropTable tableName="ADDRESS"/>
         </rollback>
     </changeSet>
+    <changeSet id="changeing_column_name" author="pavan_kalyan">
+        <renameColumn tableName="ADDRESS" oldColumnName="Street" newColumnName="street"/>
+    </changeSet>
 
 </databaseChangeLog>

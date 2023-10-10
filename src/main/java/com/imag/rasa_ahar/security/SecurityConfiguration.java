@@ -1,5 +1,6 @@
 package com.imag.rasa_ahar.security;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,9 +37,10 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception{
       // http.authorizeHttpRequests().requestMatchers("/admin/**").hasRole("admin");
-        http.authorizeHttpRequests().requestMatchers("user/authenticate","/user/new-user").permitAll();
-        http.authorizeHttpRequests().requestMatchers("/user/**","/admin/**").hasAuthority("admin");
-        http.authorizeHttpRequests().requestMatchers("/user/**").hasAuthority("user");
+        http.authorizeHttpRequests().requestMatchers("/com.imag.rasa-ahar/v1/user/authenticate","/com.imag.rasa-ahar/v1/user/new-user",
+                "/com.imag.rasa-ahar/v1/restaurant/**").permitAll();
+        http.authorizeHttpRequests().requestMatchers("/com.imag.rasa-ahar/v1/user-admin/**").hasAuthority("admin").and().exceptionHandling().accessDeniedHandler(((request, response, accessDeniedException) -> response.setStatus(HttpServletResponse.SC_FORBIDDEN)));
+        http.authorizeHttpRequests().requestMatchers("/com.imag.rasa-ahar/v1/user/**").hasAuthority("user");
         http.authorizeHttpRequests().anyRequest().permitAll();
         http.httpBasic();
         http.csrf().disable();

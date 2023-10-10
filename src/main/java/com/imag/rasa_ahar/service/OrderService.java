@@ -8,8 +8,11 @@ import com.imag.rasa_ahar.exceptions.CanNotOrderFromDiffrentRestaurants;
 import com.imag.rasa_ahar.repo.MenuRepo;
 import com.imag.rasa_ahar.repo.OrderDetailsRepo;
 import com.imag.rasa_ahar.repo.OrderRepo;
+import com.imag.rasa_ahar.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -28,6 +31,8 @@ public class OrderService {
     OrderDetailsRepo orderDetailsRepo;
     @Autowired
     MenuRepo menuRepo;
+    @Autowired
+    UserRepo userRepo;
 
     //To get the status of an order using orderId field
     public String status(int id) {
@@ -54,30 +59,32 @@ public class OrderService {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "NO ORDER FOUND WITH THAT ORDER ID");
         }
     }
-    public Order placeOrder(int userId, List<OrderDetails> orderDetails){
+
+    public Order placeOrder(List<OrderDetails> orderDetails) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
         Order order = new Order();
-        order.setUserId(userId);
-        Restaurant restaurant ;
-        double total=0;
+        order.setUserId(userRepo.findByName(userName).getId());
+        Restaurant restaurant;
+        double total = 0;
         Optional<Menu> dish = menuRepo.findById(orderDetails.get(0).getDishId());
-        if (dish.isPresent()){
+        if (dish.isPresent()) {
             restaurant = dish.get().getRestaurant();
             order.setRestaurantId(restaurant.getId());
-            for(OrderDetails item:orderDetails){
+            for (OrderDetails item : orderDetails) {
                 Menu menu = menuRepo.findById(item.getDishId()).get();
-                if(restaurant.equals(menu.getRestaurant())){
-                    total+=menu.getPrice()*item.getQuantity();
-                }
-                else {
+                if (restaurant.getId() == (menu.getRestaurant().getId())) {
+                    total += menu.getPrice() * item.getQuantity();
+                } else {
                     throw new CanNotOrderFromDiffrentRestaurants();
                 }
             }
             order.setOrderTotal(total);
             order.setStatus("Pending");
-            order.setDriverId((int)(Math.random()*10));
+            order.setDriverId((int) (Math.random() * 10));
             order.setTime(LocalDateTime.now());
             orderRepo.save(order);
-            for(OrderDetails item:orderDetails){
+            for (OrderDetails item : orderDetails) {
                 item.setOrderId(order.getId());
                 orderDetailsRepo.save(item);
             }

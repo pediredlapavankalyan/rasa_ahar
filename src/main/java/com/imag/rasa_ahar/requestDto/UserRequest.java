@@ -1,15 +1,23 @@
 package com.imag.rasa_ahar.requestDto;
 
+import jakarta.persistence.Column;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 public class UserRequest {
+    @NotNull(message = "User Name Should not be null")
     private String name;
+    @Email(message = "Invalid Email")
     private String email;
     private String password;
+    @Pattern(regexp = "^\\d{10}$",message = "Invalid Mobile Number")
     private String phone;
+    @NotNull
     private  String role;
 
-    public UserRequest(String name, String email, String password, String phone, String role) {
+    public UserRequest(String name, String email, String password, String phone, String role)  {
         this.name = name;
         this.email = email;
         this.password = password;

@@ -8,6 +8,8 @@ import com.imag.rasa_ahar.repo.RestaurantRepo;
 import com.imag.rasa_ahar.requestDto.RestaurantDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -78,6 +80,10 @@ public class RestaurantService implements RestaurantInterface {
         } else {
             throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Incorrect Old Phone NUmber");
         }
+    }
+    @Override
+    public List<RestaurantDto> restaurantsPage(int num){
+        return restaurantRepo.findAll(PageRequest.of(num,5)).getContent().stream().map(r->modelMapper.map(r,RestaurantDto.class)).collect(Collectors.toList());
     }
 
     public Set<Restaurant> topRestaurants() {
