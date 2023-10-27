@@ -12,7 +12,6 @@ import com.imag.rasa_ahar.service.JwtService;
 import com.imag.rasa_ahar.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,6 +32,11 @@ public class UserController {
     JwtService jwtService;
     @Autowired
     AuthenticationManager authenticationManager;
+
+    @GetMapping("/message")
+    public String getMessage(){
+        return "Successful";
+    }
 
     //To Register new user
     @PostMapping("/com.imag.rasa-ahar/v1/user/new-user")//Url
